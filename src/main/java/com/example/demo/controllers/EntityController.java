@@ -3,8 +3,10 @@ package com.example.demo.controllers;
 import com.example.demo.BootStrap.BootStrapData;
 import com.example.demo.domain.Entity;
 import com.example.demo.domain.EntityResponse;
+import com.example.demo.domain.Summary;
 import com.example.demo.service.EntityService;
 import com.example.demo.service.EntityServiceImpl;
+import com.example.demo.service.MetricService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,7 @@ import static com.example.demo.controllers.EntityController.BASE_URL;
 public class EntityController {
 
     private final EntityService entityService;
+    private  final MetricService metricService = new MetricService();
 
     public static final String BASE_URL = "/chargingSessions";
     EntityServiceImpl t = BootStrapData.prova;
@@ -46,6 +49,8 @@ public class EntityController {
         System.out.println(id);
         System.out.println(uuid);
         Entity ret = t.editStatus(uuid);
+        metricService.increaseCount("FINISH");
+        metricService.increaseCount("TOTAL");
         return  ret;
     }
 
@@ -55,8 +60,17 @@ public class EntityController {
     public EntityResponse createEntity(@RequestBody Map<String,Object> requestDetails) {
         Entity returnValue = new Entity(requestDetails.get("stationId").toString(), LocalDateTime.parse(requestDetails.get("timestamp").toString()));
         t.addEntity(returnValue);
-        System.out.println("Added: "+ t.findEntity(returnValue.getId())+ "to Sessions");
+        metricService.increaseCount("STARTED");
+        metricService.increaseCount("TOTAL");
+        //System.out.println("Added: "+ t.findEntity(returnValue.getId())+ "to Sessions");
         return new EntityResponse(returnValue);
+    }
+
+
+    @RequestMapping(value = "/summary", method = RequestMethod.GET)
+    @ResponseBody
+    public Summary getStatusMetric() {
+        return metricService.getSummary();
     }
 
 }
