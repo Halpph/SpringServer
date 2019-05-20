@@ -1,23 +1,17 @@
 package com.example.demo.BootStrap;
 
-import com.example.demo.EntityRepository;
-import com.example.demo.controllers.EntityController;
-import com.example.demo.domain.Entity;
-import com.example.demo.service.EntityService;
+import com.example.demo.Repository.EntityRepository;
 import com.example.demo.service.EntityServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.UUID;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
     public static EntityServiceImpl prova = new EntityServiceImpl();
     @Override
     public void run(String... args) throws Exception {
+
        /* System.out.println("Loading entities data");
 
 

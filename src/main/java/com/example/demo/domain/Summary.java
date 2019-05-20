@@ -19,7 +19,7 @@ public class Summary {
     public void setTotalCount() {
         this.totalCount++;
 
-        System.out.println("Aumento il total count");
+        //System.out.println("Aumento il total count");
     }
 
     public int getStartedCount() {
@@ -29,7 +29,7 @@ public class Summary {
     public void setStartedCount() {
         this.startedCount ++;
 
-        System.out.println("Aumento lo started count");
+        //System.out.println("Aumento lo started count");
     }
 
     public int getStoppedCount() {
@@ -39,7 +39,7 @@ public class Summary {
     public void setStoppedCount() {
         this.stoppedCount++;
 
-        System.out.println("Aumento lo stopped count");
+        //System.out.println("Aumento lo stopped count");
     }
 
     @Override

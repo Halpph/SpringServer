@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.EntityRepository;
+import com.example.demo.Repository.EntityRepository;
 import com.example.demo.domain.Entity;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 @Service
+
 public class EntityServiceImpl implements EntityService {
 
     public static EntityRepository a = new EntityRepository();
@@ -30,7 +31,7 @@ public class EntityServiceImpl implements EntityService {
         Entity ent =  a.getEntityRepository().get(id);
         if ( ent.getStatus() == Entity.StatusEnum.IN_PROGRESS) {
             ent.setStatus(Entity.StatusEnum.FINISHED);
-            System.out.println("changed status of session: " + id.toString() + " to "+ ent.getStatus().toString() );
+            //System.out.println("changed status of session: " + id.toString() + " to "+ ent.getStatus().toString() );
         }
         return ent;
     }

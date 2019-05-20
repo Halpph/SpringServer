@@ -110,6 +110,32 @@ public class DemoApplicationTests {
 				.andExpect(content().string(containsString("FINISHED")));
 	}
 
+	@Test
+	public void summary() throws Exception{
+
+		creation();
+		Thread.sleep(100);
+		putting();
+		mockMvc.perform(get("http://localhost:8080/chargingSessions/summary").
+				contentType(MediaType.APPLICATION_JSON))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("\"totalCount\":4")))
+				.andExpect(content().string(containsString("\"startedCount\":3")))
+				.andExpect(content().string(containsString("\"stoppedCount\":1")));
+
+		Thread.sleep(60000);//check if after one minute the counters restart from 0
+
+		mockMvc.perform(get("http://localhost:8080/chargingSessions/summary").
+				contentType(MediaType.APPLICATION_JSON))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("\"totalCount\":0")))
+				.andExpect(content().string(containsString("\"startedCount\":0")))
+				.andExpect(content().string(containsString("\"stoppedCount\":0")));
+
+	}
+
 
 
 }

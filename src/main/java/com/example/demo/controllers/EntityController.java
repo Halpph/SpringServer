@@ -23,7 +23,7 @@ import static com.example.demo.controllers.EntityController.BASE_URL;
 public class EntityController {
 
     private final EntityService entityService;
-    private  final MetricService metricService = new MetricService();
+    private final MetricService metricService = new MetricService();
 
     public static final String BASE_URL = "/chargingSessions";
     EntityServiceImpl t = BootStrapData.prova;
